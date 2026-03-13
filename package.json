@@ -1,0 +1,21 @@
+{
+  "name": "mandi-share",
+  "version": "1.0.0",
+  "description": "MandiShare - Crowdsourced farmer price transparency dashboard",
+  "scripts": {
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "seed": "cd server && node seed.js"
+  },
+  "keywords": [
+    "agriculture",
+    "price-transparency",
+    "mandi"
+  ],
+  "author": "K Satya Sai Nischal",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
