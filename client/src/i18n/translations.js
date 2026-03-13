@@ -1,0 +1,143 @@
+export const translations = {
+  en: {
+    // Navbar
+    brandName: 'MandiShare',
+    brandTagline: 'Price Transparency',
+    live: 'LIVE',
+    reportPrice: 'Report Price',
+
+    // Stats
+    totalReports: 'Total Reports',
+    verified: 'Verified',
+    cropsTracked: 'Crops Tracked',
+    activeMandis: 'Active Mandis',
+
+    // Chart
+    priceComparison: 'Price Comparison',
+    chartSubtitle: 'Official APMC baseline vs crowdsourced farmer average',
+    official: 'Official',
+    crowdsourced: 'Crowdsourced',
+    officialBaseline: 'Official Baseline',
+    crowdAverage: 'Crowd Average',
+    difference: 'Difference',
+
+    // Feed
+    recentReports: 'Recent Reports',
+    reportsFrom: 'price reports from farmers across India',
+    noReports: 'No reports found',
+    noReportsHint: 'Be the first farmer to share a price and help build transparency!',
+    quintals: 'quintals',
+    perQuintal: '/qtl',
+    vsOfficial: 'vs',
+    officialLabel: 'official',
+    justNow: 'Just now',
+
+    // Filters
+    filter: 'Filter',
+    allCrops: 'All Crops',
+    allMandis: 'All Mandis',
+    clear: 'Clear',
+
+    // Form
+    formTitle: 'Report Price',
+    formSubtitle: 'Share your realized mandi price',
+    crop: 'Crop',
+    mandi: 'Mandi',
+    selectCrop: 'Select crop',
+    selectMandi: 'Select mandi',
+    price: 'Price',
+    priceUnit: '₹/quintal',
+    quantity: 'Quantity',
+    quantityUnit: 'quintals',
+    baselineHint: 'Official baseline:',
+    acceptedRange: '— prices within ±50% are accepted',
+    receiptPhoto: 'Receipt Photo',
+    receiptOptional: '(optional — earns trust badge)',
+    dropReceipt: 'Drop receipt image here or',
+    browse: 'browse',
+    fileTypes: 'JPG, PNG, WebP — max 5MB',
+    remove: 'Remove',
+    receiptAttached: 'Receipt attached',
+    submitReport: 'Submit Price Report',
+    submitting: 'Submitting...',
+    successMsg: 'Price report submitted successfully!',
+    fillAllFields: 'Please fill all required fields',
+
+    // Trust badge
+    verifiedBadge: 'Verified',
+
+    // Language
+    language: 'हिंदी',
+  },
+
+  hi: {
+    // Navbar
+    brandName: 'मंडीशेयर',
+    brandTagline: 'मूल्य पारदर्शिता',
+    live: 'लाइव',
+    reportPrice: 'मूल्य दर्ज करें',
+
+    // Stats
+    totalReports: 'कुल रिपोर्ट',
+    verified: 'सत्यापित',
+    cropsTracked: 'फसलें',
+    activeMandis: 'मंडियाँ',
+
+    // Chart
+    priceComparison: 'मूल्य तुलना',
+    chartSubtitle: 'सरकारी APMC बेसलाइन बनाम किसानों का औसत',
+    official: 'सरकारी',
+    crowdsourced: 'किसान औसत',
+    officialBaseline: 'सरकारी बेसलाइन',
+    crowdAverage: 'किसान औसत',
+    difference: 'अंतर',
+
+    // Feed
+    recentReports: 'हाल की रिपोर्ट',
+    reportsFrom: 'भारत भर के किसानों से मूल्य रिपोर्ट',
+    noReports: 'कोई रिपोर्ट नहीं मिली',
+    noReportsHint: 'पहले किसान बनें जो मूल्य साझा करें और पारदर्शिता बनाएं!',
+    quintals: 'क्विंटल',
+    perQuintal: '/क्विंटल',
+    vsOfficial: 'बनाम',
+    officialLabel: 'सरकारी',
+    justNow: 'अभी',
+
+    // Filters
+    filter: 'फ़िल्टर',
+    allCrops: 'सभी फसलें',
+    allMandis: 'सभी मंडियाँ',
+    clear: 'हटाएं',
+
+    // Form
+    formTitle: 'मूल्य दर्ज करें',
+    formSubtitle: 'अपनी मंडी की कीमत साझा करें',
+    crop: 'फसल',
+    mandi: 'मंडी',
+    selectCrop: 'फसल चुनें',
+    selectMandi: 'मंडी चुनें',
+    price: 'मूल्य',
+    priceUnit: '₹/क्विंटल',
+    quantity: 'मात्रा',
+    quantityUnit: 'क्विंटल',
+    baselineHint: 'सरकारी बेसलाइन:',
+    acceptedRange: '— ±50% के भीतर मूल्य स्वीकार्य हैं',
+    receiptPhoto: 'रसीद फोटो',
+    receiptOptional: '(वैकल्पिक — विश्वास बैज मिलेगा)',
+    dropReceipt: 'रसीद की फोटो यहाँ डालें या',
+    browse: 'चुनें',
+    fileTypes: 'JPG, PNG, WebP — अधिकतम 5MB',
+    remove: 'हटाएं',
+    receiptAttached: 'रसीद संलग्न',
+    submitReport: 'मूल्य रिपोर्ट जमा करें',
+    submitting: 'जमा हो रहा है...',
+    successMsg: 'मूल्य रिपोर्ट सफलतापूर्वक जमा हुई!',
+    fillAllFields: 'कृपया सभी आवश्यक फ़ील्ड भरें',
+
+    // Trust badge
+    verifiedBadge: 'सत्यापित',
+
+    // Language
+    language: 'English',
+  }
+};

@@ -1,7 +1,10 @@
 import PriceCard from './PriceCard';
 import { HiOutlineInbox } from 'react-icons/hi';
+import { useLanguage } from '../i18n/LanguageContext';
 
 export default function PriceFeed({ reports, loading }) {
+  const { t } = useLanguage();
+
   if (loading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 stagger">
@@ -31,8 +34,8 @@ export default function PriceFeed({ reports, loading }) {
         <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gray-50 flex items-center justify-center">
           <HiOutlineInbox className="w-8 h-8 text-gray-300" />
         </div>
-        <p className="text-gray-600 font-bold text-lg">No reports found</p>
-        <p className="text-gray-400 text-sm mt-1.5 max-w-xs mx-auto">Be the first farmer to share a price and help build transparency!</p>
+        <p className="text-gray-600 font-bold text-lg">{t('noReports')}</p>
+        <p className="text-gray-400 text-sm mt-1.5 max-w-xs mx-auto">{t('noReportsHint')}</p>
       </div>
     );
   }

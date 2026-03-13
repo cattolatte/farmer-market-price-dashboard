@@ -1,4 +1,5 @@
 import { HiOutlineBadgeCheck, HiOutlineLocationMarker, HiOutlineClock, HiOutlineTrendingUp, HiOutlineTrendingDown } from 'react-icons/hi';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const CROP_CONFIG = {
   Onion:  { emoji: '🧅', gradient: 'from-purple-50 to-fuchsia-50', ring: 'ring-purple-100' },
@@ -6,9 +7,9 @@ const CROP_CONFIG = {
   Potato: { emoji: '🥔', gradient: 'from-amber-50 to-yellow-50', ring: 'ring-amber-100' },
 };
 
-function timeAgo(dateStr) {
+function timeAgo(dateStr, justNowLabel) {
   const seconds = Math.floor((Date.now() - new Date(dateStr)) / 1000);
-  if (seconds < 60) return 'Just now';
+  if (seconds < 60) return justNowLabel;
   const minutes = Math.floor(seconds / 60);
   if (minutes < 60) return `${minutes}m ago`;
   const hours = Math.floor(minutes / 60);
@@ -18,6 +19,7 @@ function timeAgo(dateStr) {
 }
 
 export default function PriceCard({ report, index = 0 }) {
+  const { t } = useLanguage();
   const { crop_id: crop, mandi_id: mandi, reported_price, quantity, has_receipt, timestamp } = report;
   const baseline = crop?.baseline_price || 0;
   const diff = baseline > 0 ? ((reported_price - baseline) / baseline) * 100 : 0;
@@ -46,7 +48,7 @@ export default function PriceCard({ report, index = 0 }) {
         {has_receipt && (
           <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60 shadow-sm shadow-amber-100/50">
             <HiOutlineBadgeCheck className="w-3.5 h-3.5 text-amber-500" />
-            <span className="text-[10px] font-extrabold text-amber-600 uppercase tracking-wider">Verified</span>
+            <span className="text-[10px] font-extrabold text-amber-600 uppercase tracking-wider">{t('verifiedBadge')}</span>
           </div>
         )}
       </div>
@@ -55,7 +57,7 @@ export default function PriceCard({ report, index = 0 }) {
       <div className="mb-4">
         <div className="flex items-baseline gap-1.5">
           <span className="text-[28px] font-black text-gray-900 tracking-tight">₹{reported_price.toLocaleString()}</span>
-          <span className="text-xs text-gray-400 font-semibold">/qtl</span>
+          <span className="text-xs text-gray-400 font-semibold">{t('perQuintal')}</span>
         </div>
         <div className="flex items-center gap-3 mt-1.5">
           <div className={`flex items-center gap-0.5 px-2 py-0.5 rounded-full text-xs font-bold ${
@@ -64,7 +66,7 @@ export default function PriceCard({ report, index = 0 }) {
             {isAbove ? <HiOutlineTrendingUp className="w-3.5 h-3.5" /> : <HiOutlineTrendingDown className="w-3.5 h-3.5" />}
             <span>{isAbove ? '+' : ''}{diff.toFixed(1)}%</span>
           </div>
-          <span className="text-[11px] text-gray-400 font-medium">vs ₹{baseline.toLocaleString()} official</span>
+          <span className="text-[11px] text-gray-400 font-medium">{t('vsOfficial')} ₹{baseline.toLocaleString()} {t('officialLabel')}</span>
         </div>
       </div>
 
@@ -72,11 +74,11 @@ export default function PriceCard({ report, index = 0 }) {
       <div className="flex items-center justify-between pt-3 border-t border-gray-100/80">
         <div className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
-          <span className="text-xs text-gray-500 font-semibold">{quantity} quintals</span>
+          <span className="text-xs text-gray-500 font-semibold">{quantity} {t('quintals')}</span>
         </div>
         <div className="flex items-center gap-1 text-xs text-gray-400 font-medium">
           <HiOutlineClock className="w-3 h-3" />
-          <span>{timeAgo(timestamp)}</span>
+          <span>{timeAgo(timestamp, t('justNow'))}</span>
         </div>
       </div>
     </div>

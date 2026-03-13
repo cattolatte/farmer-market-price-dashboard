@@ -4,6 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const PriceReport = require('../models/PriceReport');
 const Crop = require('../models/Crop');
+const demoData = require('../demoData');
 
 // Multer config for local image uploads
 const storage = multer.diskStorage({
@@ -43,7 +44,11 @@ router.get('/', async (req, res) => {
 
     res.json(reports);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch reports' });
+    console.warn('DB unavailable, serving demo reports');
+    let filtered = demoData.reports;
+    if (req.query.crop_id) filtered = filtered.filter(r => r.crop_id._id === req.query.crop_id);
+    if (req.query.mandi_id) filtered = filtered.filter(r => r.mandi_id._id === req.query.mandi_id);
+    res.json(filtered);
   }
 });
 

@@ -6,9 +6,11 @@ import FilterBar from './components/FilterBar';
 import ComparisonChart from './components/ComparisonChart';
 import ReportForm from './components/ReportForm';
 import { fetchCrops, fetchMandis, fetchReports } from './api';
+import { useLanguage } from './i18n/LanguageContext';
 import { HiOutlineTrendingUp, HiOutlineBadgeCheck, HiOutlineCollection, HiOutlineOfficeBuilding } from 'react-icons/hi';
 
 function App() {
+  const { t } = useLanguage();
   const [reports, setReports] = useState([]);
   const [crops, setCrops] = useState([]);
   const [mandis, setMandis] = useState([]);
@@ -44,7 +46,6 @@ function App() {
     loadReports();
   }, [loadReports]);
 
-  // Lock body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = showForm ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
@@ -72,34 +73,10 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* Hero Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 stagger">
-          <StatCard
-            label="Total Reports"
-            value={reports.length}
-            icon={<HiOutlineCollection className="w-5 h-5" />}
-            gradient="from-blue-500 to-indigo-600"
-            bg="bg-blue-50"
-          />
-          <StatCard
-            label="Verified"
-            value={verifiedCount}
-            icon={<HiOutlineBadgeCheck className="w-5 h-5" />}
-            gradient="from-emerald-500 to-teal-600"
-            bg="bg-emerald-50"
-          />
-          <StatCard
-            label="Crops Tracked"
-            value={crops.length}
-            icon={<HiOutlineTrendingUp className="w-5 h-5" />}
-            gradient="from-amber-500 to-orange-600"
-            bg="bg-amber-50"
-          />
-          <StatCard
-            label="Active Mandis"
-            value={mandis.length}
-            icon={<HiOutlineOfficeBuilding className="w-5 h-5" />}
-            gradient="from-purple-500 to-pink-600"
-            bg="bg-purple-50"
-          />
+          <StatCard label={t('totalReports')} value={reports.length} icon={<HiOutlineCollection className="w-5 h-5" />} gradient="from-blue-500 to-indigo-600" />
+          <StatCard label={t('verified')} value={verifiedCount} icon={<HiOutlineBadgeCheck className="w-5 h-5" />} gradient="from-emerald-500 to-teal-600" />
+          <StatCard label={t('cropsTracked')} value={crops.length} icon={<HiOutlineTrendingUp className="w-5 h-5" />} gradient="from-amber-500 to-orange-600" />
+          <StatCard label={t('activeMandis')} value={mandis.length} icon={<HiOutlineOfficeBuilding className="w-5 h-5" />} gradient="from-purple-500 to-pink-600" />
         </div>
 
         {/* Chart */}
@@ -109,23 +86,17 @@ function App() {
         <div className="space-y-5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h2 className="text-xl font-extrabold text-gray-900">Recent Reports</h2>
+              <h2 className="text-xl font-extrabold text-gray-900">{t('recentReports')}</h2>
               <p className="text-xs text-gray-400 font-medium mt-0.5">
-                {reports.length} price {reports.length === 1 ? 'report' : 'reports'} from farmers across India
+                {reports.length} {t('reportsFrom')}
               </p>
             </div>
-            <FilterBar
-              crops={crops}
-              mandis={mandis}
-              filters={filters}
-              onFilterChange={setFilters}
-            />
+            <FilterBar crops={crops} mandis={mandis} filters={filters} onFilterChange={setFilters} />
           </div>
           <PriceFeed reports={reports} loading={loading} />
         </div>
       </main>
 
-      {/* Report Form Modal */}
       {showForm && (
         <ReportForm
           crops={crops}
@@ -138,7 +109,7 @@ function App() {
   );
 }
 
-function StatCard({ label, value, icon, gradient, bg }) {
+function StatCard({ label, value, icon, gradient }) {
   return (
     <div className="fade-in glass glow-border rounded-2xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 hover:-translate-y-0.5 transition-all duration-300">
       <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white shadow-lg`}>
