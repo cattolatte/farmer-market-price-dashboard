@@ -32,6 +32,7 @@ export async function compressImage(file, maxSizeKB = 500) {
         const tryCompress = () => {
           canvas.toBlob(
             (blob) => {
+              if (!blob) { resolve(file); return; }
               if (blob.size <= maxSizeKB * 1024 || quality <= 0.3) {
                 const compressed = new File([blob], file.name, {
                   type: 'image/jpeg',

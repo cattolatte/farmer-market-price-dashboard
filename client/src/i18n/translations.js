@@ -31,6 +31,9 @@ export const translations = {
     vsOfficial: 'vs',
     officialLabel: 'official',
     justNow: 'Just now',
+    minutesAgo: 'm ago',
+    hoursAgo: 'h ago',
+    daysAgo: 'd ago',
 
     // Filters
     filter: 'Filter',
@@ -62,6 +65,8 @@ export const translations = {
     submitting: 'Submitting...',
     successMsg: 'Price report submitted successfully!',
     fillAllFields: 'Please fill all required fields',
+    invalidFileType: 'Only JPG, PNG, or WebP images allowed',
+    spamError: 'Price deviates more than 50% from official baseline. Please verify.',
 
     // Trust badge
     verifiedBadge: 'Verified',
@@ -110,6 +115,9 @@ export const translations = {
     vsOfficial: 'बनाम',
     officialLabel: 'सरकारी',
     justNow: 'अभी',
+    minutesAgo: 'मि पहले',
+    hoursAgo: 'घं पहले',
+    daysAgo: 'दिन पहले',
 
     // Filters
     filter: 'फ़िल्टर',
@@ -141,6 +149,8 @@ export const translations = {
     submitting: 'जमा हो रहा है...',
     successMsg: 'मूल्य रिपोर्ट सफलतापूर्वक जमा हुई!',
     fillAllFields: 'कृपया सभी आवश्यक फ़ील्ड भरें',
+    invalidFileType: 'केवल JPG, PNG, या WebP चित्र अनुमत हैं',
+    spamError: 'मूल्य सरकारी बेसलाइन से 50% से अधिक भिन्न है। कृपया सत्यापित करें।',
 
     // Trust badge
     verifiedBadge: 'सत्यापित',

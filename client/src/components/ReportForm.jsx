@@ -17,7 +17,7 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
   const handleFile = async (f) => {
     if (!f) return;
     if (!f.type.match(/image\/(jpeg|jpg|png|webp)/)) {
-      toast.error('Only JPG, PNG, or WebP images allowed');
+      toast.error(t('invalidFileType'));
       return;
     }
     const compressed = await compressImage(f, 500);
@@ -62,7 +62,10 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
       onSuccess();
       onClose();
     } catch (err) {
-      const msg = err.response?.data?.message || err.response?.data?.error || 'Failed to submit report';
+      const code = err.response?.data?.code;
+      const msg = code === 'SPAM_DETECTED'
+        ? t('spamError')
+        : (err.response?.data?.error || t('fillAllFields'));
       toast.error(msg, { duration: 5000 });
     } finally {
       setSubmitting(false);
@@ -71,7 +74,7 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 modal-backdrop" style={{ background: 'rgba(0,0,0,0.5)' }}>
-      <div className="absolute inset-0" onClick={onClose} />
+      <div className="absolute inset-0" onClick={submitting ? undefined : onClose} />
 
       <div className="relative w-full max-w-lg glass-strong rounded-3xl shadow-2xl modal-content max-h-[90vh] overflow-y-auto">
         {/* Header */}

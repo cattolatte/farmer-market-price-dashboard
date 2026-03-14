@@ -48,7 +48,7 @@ async function seed() {
       const crop = insertedCrops[i % insertedCrops.length];
       const mandi = insertedMandis[i % insertedMandis.length];
 
-      // Vary price within +/- 30% of baseline (within spam threshold)
+      // Vary price within +/- 30% of baseline (well within 50% spam threshold)
       const variance = 1 + (Math.random() * 0.6 - 0.3);
       const price = Math.round(crop.baseline_price * variance);
 

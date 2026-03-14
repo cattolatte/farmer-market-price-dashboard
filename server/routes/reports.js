@@ -2,14 +2,19 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const PriceReport = require('../models/PriceReport');
 const Crop = require('../models/Crop');
 const demoData = require('../demoData');
 
+// Ensure uploads directory exists
+const uploadDir = path.join(__dirname, '..', 'uploads');
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+
 // Multer config for local image uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '..', 'uploads'));
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
@@ -29,6 +34,22 @@ const upload = multer({
   }
 });
 
+// Multer error handling wrapper
+const handleUpload = (req, res, next) => {
+  upload.single('receipt_image')(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ error: 'File too large. Maximum size is 5MB.' });
+      }
+      return res.status(400).json({ error: err.message });
+    }
+    if (err) {
+      return res.status(400).json({ error: err.message });
+    }
+    next();
+  });
+};
+
 // GET /api/reports - Fetch latest price reports with optional filtering
 router.get('/', async (req, res) => {
   try {
@@ -46,14 +67,14 @@ router.get('/', async (req, res) => {
   } catch (err) {
     console.warn('DB unavailable, serving demo reports');
     let filtered = demoData.reports;
-    if (req.query.crop_id) filtered = filtered.filter(r => r.crop_id._id === req.query.crop_id);
-    if (req.query.mandi_id) filtered = filtered.filter(r => r.mandi_id._id === req.query.mandi_id);
+    if (req.query.crop_id) filtered = filtered.filter(r => String(r.crop_id._id) === req.query.crop_id);
+    if (req.query.mandi_id) filtered = filtered.filter(r => String(r.mandi_id._id) === req.query.mandi_id);
     res.json(filtered);
   }
 });
 
 // POST /api/reports - Submit a new price report
-router.post('/', upload.single('receipt_image'), async (req, res) => {
+router.post('/', handleUpload, async (req, res) => {
   try {
     const { mandi_id, crop_id, reported_price, quantity } = req.body;
 
@@ -82,7 +103,7 @@ router.post('/', upload.single('receipt_image'), async (req, res) => {
     if (variance > 0.5) {
       return res.status(400).json({
         error: 'Price flagged as suspicious',
-        message: `Reported price (₹${price}) deviates more than 50% from the official baseline (₹${crop.baseline_price}). Please verify your price.`,
+        code: 'SPAM_DETECTED',
         baseline_price: crop.baseline_price
       });
     }

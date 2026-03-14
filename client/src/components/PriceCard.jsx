@@ -9,15 +9,15 @@ const CROP_CONFIG = {
   Wheat:  { emoji: '🌿', gradient: 'from-orange-50 to-amber-50 dark:from-orange-950/40 dark:to-amber-950/30', ring: 'ring-orange-100 dark:ring-orange-800/40' },
 };
 
-function timeAgo(dateStr, justNowLabel) {
+function timeAgo(dateStr, t) {
   const seconds = Math.floor((Date.now() - new Date(dateStr)) / 1000);
-  if (seconds < 60) return justNowLabel;
+  if (seconds < 60) return t('justNow');
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
+  if (minutes < 60) return `${minutes}${t('minutesAgo')}`;
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
+  if (hours < 24) return `${hours}${t('hoursAgo')}`;
   const days = Math.floor(hours / 24);
-  return `${days}d ago`;
+  return `${days}${t('daysAgo')}`;
 }
 
 export default function PriceCard({ report, index = 0 }) {
@@ -82,7 +82,7 @@ export default function PriceCard({ report, index = 0 }) {
         </div>
         <div className="flex items-center gap-1 text-xs text-themed-muted font-medium">
           <HiOutlineClock className="w-3 h-3" />
-          <span>{timeAgo(timestamp, t('justNow'))}</span>
+          <span>{timeAgo(timestamp, t)}</span>
         </div>
       </div>
     </div>

@@ -32,8 +32,12 @@ function CustomTooltip({ active, payload, label, t, dark }) {
           <div className="flex items-center justify-between">
             <span className="text-xs text-themed-muted">{t('difference')}</span>
             <span className={`text-xs font-bold ${payload[1].value >= payload[0].value ? 'text-emerald-500' : 'text-red-500'}`}>
-              {payload[1].value >= payload[0].value ? '+' : ''}
-              {((payload[1].value - payload[0].value) / payload[0].value * 100).toFixed(1)}%
+              {payload[0].value > 0 ? (
+                <>
+                  {payload[1].value >= payload[0].value ? '+' : ''}
+                  {((payload[1].value - payload[0].value) / payload[0].value * 100).toFixed(1)}%
+                </>
+              ) : 'N/A'}
             </span>
           </div>
         </div>
@@ -48,11 +52,11 @@ export default function ComparisonChart({ reports, crops }) {
 
   const cropMap = {};
   crops.forEach(c => {
-    cropMap[c._id] = { name: c.name, baseline: c.baseline_price, total: 0, count: 0 };
+    cropMap[String(c._id)] = { name: c.name, baseline: c.baseline_price, total: 0, count: 0 };
   });
 
   reports.forEach(r => {
-    const id = r.crop_id?._id;
+    const id = String(r.crop_id?._id || '');
     if (cropMap[id]) {
       cropMap[id].total += r.reported_price;
       cropMap[id].count += 1;
