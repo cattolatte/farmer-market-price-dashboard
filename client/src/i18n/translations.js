@@ -68,6 +68,14 @@ export const translations = {
 
     // Language
     language: 'हिंदी',
+
+    // Theme
+    darkMode: 'Dark Mode',
+    lightMode: 'Light Mode',
+
+    // Footer
+    footerTagline: 'Built with purpose for Indian farmers',
+    footerPowered: 'Crowdsourced price transparency',
   },
 
   hi: {
@@ -139,5 +147,13 @@ export const translations = {
 
     // Language
     language: 'English',
+
+    // Theme
+    darkMode: 'डार्क मोड',
+    lightMode: 'लाइट मोड',
+
+    // Footer
+    footerTagline: 'भारतीय किसानों के लिए निर्मित',
+    footerPowered: 'क्राउडसोर्स्ड मूल्य पारदर्शिता',
   }
 };

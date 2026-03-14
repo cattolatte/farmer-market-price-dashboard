@@ -5,6 +5,35 @@ All notable changes to MandiShare will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-03-14
+
+### Added
+
+#### Dark Mode
+- Full dark theme with CSS custom properties for seamless light/dark switching
+- Animated sun/moon toggle button with smooth knob transition
+- Theme preference persisted in localStorage
+- Respects system `prefers-color-scheme` on first visit
+- All components fully themed: cards, chart, modals, filters, forms, dropdowns
+
+#### Expanded Coverage
+- 5 new APMC mandis: Gaddiannaram (Hyderabad), Kurnool Market Yard, Yeshwanthpur (Bengaluru), Lasalgaon (Nashik), Devi Ahilya Bai (Indore)
+- 2 new crops: Rice (₹3,200/qtl) and Wheat (₹2,800/qtl)
+- 25 historical seed reports (up from 10)
+- Demo fallback data updated to match expanded dataset
+
+#### UI Enhancements
+- Floating ambient orbs with parallax animation for depth
+- Card shine effect on hover (sweeping light gradient)
+- Verified badge shimmer animation
+- Number pop animation for stat card values
+- Improved hover-lift with theme-aware shadow colors
+- Dark-aware glow borders with vivid gradient in dark mode
+- Themed toast notifications matching current color scheme
+- Footer section with localized tagline
+
+---
+
 ## [1.1.0] - 2026-03-14
 
 ### Added

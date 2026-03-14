@@ -1,11 +1,13 @@
 import { HiOutlineScale, HiOutlinePlusCircle, HiOutlineTranslate } from 'react-icons/hi';
 import { useLanguage } from '../i18n/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Navbar({ onOpenForm }) {
   const { t, toggleLang } = useLanguage();
+  const { dark, toggleTheme } = useTheme();
 
   return (
-    <nav className="sticky top-0 z-50 glass-strong shadow-sm">
+    <nav className="sticky top-0 z-50 glass-strong">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -15,28 +17,44 @@ export default function Navbar({ onOpenForm }) {
             </div>
             <div>
               <h1 className="text-xl font-extrabold tracking-tight">
-                <span className="gradient-text">Mandi</span><span className="text-gray-900">Share</span>
+                <span className="gradient-text">Mandi</span><span className="text-themed">Share</span>
               </h1>
-              <p className="text-[10px] text-gray-400 -mt-0.5 font-semibold tracking-widest uppercase">
+              <p className="text-[10px] text-themed-muted -mt-0.5 font-semibold tracking-widest uppercase">
                 {t('brandTagline')}
               </p>
             </div>
           </div>
 
-          {/* Language toggle + Live indicator + Submit button */}
+          {/* Controls */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Theme toggle */}
+            <button
+              onClick={toggleTheme}
+              className="theme-toggle"
+              title={dark ? t('lightMode') : t('darkMode')}
+            >
+              <span className="theme-toggle-knob">
+                {dark ? '🌙' : '☀️'}
+              </span>
+            </button>
+
+            {/* Language toggle */}
             <button
               onClick={toggleLang}
-              className="btn-press flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/60 border border-gray-200/60 text-xs font-bold text-gray-600 hover:bg-white hover:border-gray-300 transition-all cursor-pointer"
+              className="btn-press flex items-center gap-1.5 px-3 py-2 rounded-xl glass text-xs font-bold text-themed-secondary hover:text-themed transition-all cursor-pointer"
               title="Switch language"
             >
               <HiOutlineTranslate className="w-4 h-4" />
-              <span>{t('language')}</span>
+              <span className="hidden sm:inline">{t('language')}</span>
             </button>
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50/80 border border-emerald-200/60">
+
+            {/* Live indicator */}
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
               <span className="w-2 h-2 bg-emerald-500 rounded-full pulse-glow"></span>
-              <span className="text-xs font-bold text-emerald-700 tracking-wide">{t('live')}</span>
+              <span className="text-xs font-bold text-emerald-500 tracking-wide">{t('live')}</span>
             </div>
+
+            {/* Report Price button */}
             <button
               onClick={onOpenForm}
               className="btn-press flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary to-emerald-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"

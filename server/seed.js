@@ -10,13 +10,20 @@ const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/mandishare
 const crops = [
   { name: 'Onion', baseline_price: 1800 },
   { name: 'Tomato', baseline_price: 2500 },
-  { name: 'Potato', baseline_price: 1200 }
+  { name: 'Potato', baseline_price: 1200 },
+  { name: 'Rice', baseline_price: 3200 },
+  { name: 'Wheat', baseline_price: 2800 },
 ];
 
 const mandis = [
   { name: 'Azadpur Mandi', state: 'Delhi', district: 'New Delhi' },
   { name: 'Vashi APMC', state: 'Maharashtra', district: 'Navi Mumbai' },
-  { name: 'Koyambedu Market', state: 'Tamil Nadu', district: 'Chennai' }
+  { name: 'Koyambedu Market', state: 'Tamil Nadu', district: 'Chennai' },
+  { name: 'Gaddiannaram Mandi', state: 'Telangana', district: 'Hyderabad' },
+  { name: 'Kurnool Market Yard', state: 'Andhra Pradesh', district: 'Kurnool' },
+  { name: 'Yeshwanthpur APMC', state: 'Karnataka', district: 'Bengaluru' },
+  { name: 'Lasalgaon APMC', state: 'Maharashtra', district: 'Nashik' },
+  { name: 'Devi Ahilya Bai Mandi', state: 'Madhya Pradesh', district: 'Indore' },
 ];
 
 async function seed() {
@@ -35,11 +42,11 @@ async function seed() {
     const insertedMandis = await Mandi.insertMany(mandis);
     console.log('Inserted crops and mandis');
 
-    // Generate 10 historical price reports over the last 7 days
+    // Generate 25 historical price reports over the last 7 days
     const reports = [];
-    for (let i = 0; i < 10; i++) {
-      const crop = insertedCrops[i % 3];
-      const mandi = insertedMandis[i % 3];
+    for (let i = 0; i < 25; i++) {
+      const crop = insertedCrops[i % insertedCrops.length];
+      const mandi = insertedMandis[i % insertedMandis.length];
 
       // Vary price within +/- 30% of baseline (within spam threshold)
       const variance = 1 + (Math.random() * 0.6 - 0.3);
@@ -60,7 +67,7 @@ async function seed() {
     }
 
     await PriceReport.insertMany(reports);
-    console.log('Inserted 10 historical price reports');
+    console.log('Inserted 25 historical price reports');
 
     console.log('\nSeed complete!');
     console.log(`  Crops: ${insertedCrops.length}`);

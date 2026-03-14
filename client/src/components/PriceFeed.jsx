@@ -19,7 +19,7 @@ export default function PriceFeed({ reports, loading }) {
             </div>
             <div className="h-8 w-28 shimmer rounded-lg mb-2" />
             <div className="h-4 w-36 shimmer rounded-lg mb-4" />
-            <div className="pt-3 border-t border-gray-100">
+            <div className="pt-3 border-t divider-themed">
               <div className="h-3 w-full shimmer rounded-lg" />
             </div>
           </div>
@@ -31,11 +31,11 @@ export default function PriceFeed({ reports, loading }) {
   if (!reports.length) {
     return (
       <div className="glass rounded-2xl p-16 text-center scale-in">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gray-50 flex items-center justify-center">
-          <HiOutlineInbox className="w-8 h-8 text-gray-300" />
+        <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gray-50 dark:bg-slate-800 flex items-center justify-center">
+          <HiOutlineInbox className="w-8 h-8 text-themed-faint" />
         </div>
-        <p className="text-gray-600 font-bold text-lg">{t('noReports')}</p>
-        <p className="text-gray-400 text-sm mt-1.5 max-w-xs mx-auto">{t('noReportsHint')}</p>
+        <p className="text-themed-secondary font-bold text-lg">{t('noReports')}</p>
+        <p className="text-themed-muted text-sm mt-1.5 max-w-xs mx-auto">{t('noReportsHint')}</p>
       </div>
     );
   }

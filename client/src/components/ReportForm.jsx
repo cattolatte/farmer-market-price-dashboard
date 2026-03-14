@@ -20,7 +20,6 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
       toast.error('Only JPG, PNG, or WebP images allowed');
       return;
     }
-    // Compress image to <500KB before storing
     const compressed = await compressImage(f, 500);
     setFile(compressed);
     const reader = new FileReader();
@@ -71,19 +70,19 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 modal-backdrop" style={{ background: 'rgba(0,0,0,0.4)' }}>
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 modal-backdrop" style={{ background: 'rgba(0,0,0,0.5)' }}>
       <div className="absolute inset-0" onClick={onClose} />
 
       <div className="relative w-full max-w-lg glass-strong rounded-3xl shadow-2xl modal-content max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between p-6 pb-4 bg-white/80 backdrop-blur-xl rounded-t-3xl border-b border-gray-100">
+        <div className="sticky top-0 z-10 flex items-center justify-between p-6 pb-4 rounded-t-3xl border-b divider-themed" style={{ background: 'var(--modal-header-bg)', backdropFilter: 'blur(24px)' }}>
           <div>
-            <h2 className="text-xl font-bold text-gray-900">{t('formTitle')}</h2>
-            <p className="text-sm text-gray-400 mt-0.5">{t('formSubtitle')}</p>
+            <h2 className="text-xl font-bold text-themed">{t('formTitle')}</h2>
+            <p className="text-sm text-themed-muted mt-0.5">{t('formSubtitle')}</p>
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600 transition-all cursor-pointer"
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-slate-700 text-themed-muted hover:text-themed transition-all cursor-pointer"
           >
             <HiOutlineX className="w-5 h-5" />
           </button>
@@ -93,11 +92,11 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
           {/* Crop & Mandi */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">{t('crop')} *</label>
+              <label className="block text-xs font-semibold text-themed-secondary uppercase tracking-wide mb-1.5">{t('crop')} *</label>
               <select
                 value={form.crop_id}
                 onChange={(e) => setForm({ ...form, crop_id: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white transition-all cursor-pointer"
+                className="w-full px-3.5 py-2.5 rounded-xl input-themed border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
                 required
               >
                 <option value="">{t('selectCrop')}</option>
@@ -105,11 +104,11 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">{t('mandi')} *</label>
+              <label className="block text-xs font-semibold text-themed-secondary uppercase tracking-wide mb-1.5">{t('mandi')} *</label>
               <select
                 value={form.mandi_id}
                 onChange={(e) => setForm({ ...form, mandi_id: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white transition-all cursor-pointer"
+                className="w-full px-3.5 py-2.5 rounded-xl input-themed border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
                 required
               >
                 <option value="">{t('selectMandi')}</option>
@@ -121,29 +120,29 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
           {/* Price & Quantity */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">{t('price')} ({t('priceUnit')}) *</label>
+              <label className="block text-xs font-semibold text-themed-secondary uppercase tracking-wide mb-1.5">{t('price')} ({t('priceUnit')}) *</label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-semibold">₹</span>
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-themed-muted text-sm font-semibold">₹</span>
                 <input
                   type="number"
                   min="1"
                   value={form.reported_price}
                   onChange={(e) => setForm({ ...form, reported_price: e.target.value })}
                   placeholder="2400"
-                  className="w-full pl-8 pr-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white transition-all"
+                  className="w-full pl-8 pr-3.5 py-2.5 rounded-xl input-themed border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">{t('quantity')} ({t('quantityUnit')}) *</label>
+              <label className="block text-xs font-semibold text-themed-secondary uppercase tracking-wide mb-1.5">{t('quantity')} ({t('quantityUnit')}) *</label>
               <input
                 type="number"
                 min="1"
                 value={form.quantity}
                 onChange={(e) => setForm({ ...form, quantity: e.target.value })}
                 placeholder="25"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white transition-all"
+                className="w-full px-3.5 py-2.5 rounded-xl input-themed border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                 required
               />
             </div>
@@ -151,9 +150,9 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
 
           {/* Baseline hint */}
           {form.crop_id && (
-            <div className="fade-in flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-50/80 border border-blue-100">
+            <div className="fade-in flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-50/80 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30">
               <span className="text-xs">💡</span>
-              <span className="text-xs text-blue-600 font-medium">
+              <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">
                 {t('baselineHint')} ₹{crops.find(c => c._id === form.crop_id)?.baseline_price?.toLocaleString()}/{t('quantityUnit')} {t('acceptedRange')}
               </span>
             </div>
@@ -161,8 +160,8 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
 
           {/* Receipt upload */}
           <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-              {t('receiptPhoto')} <span className="text-gray-300 font-normal normal-case">{t('receiptOptional')}</span>
+            <label className="block text-xs font-semibold text-themed-secondary uppercase tracking-wide mb-1.5">
+              {t('receiptPhoto')} <span className="text-themed-faint font-normal normal-case">{t('receiptOptional')}</span>
             </label>
             {!preview ? (
               <div
@@ -172,11 +171,11 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
                 onDragLeave={() => setDragOver(false)}
                 onDrop={handleDrop}
               >
-                <HiOutlineCloudUpload className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-                <p className="text-sm text-gray-500 font-medium">
+                <HiOutlineCloudUpload className="w-8 h-8 text-themed-faint mx-auto mb-2" />
+                <p className="text-sm text-themed-secondary font-medium">
                   {t('dropReceipt')} <span className="text-primary font-semibold">{t('browse')}</span>
                 </p>
-                <p className="text-xs text-gray-300 mt-1">{t('fileTypes')}</p>
+                <p className="text-xs text-themed-faint mt-1">{t('fileTypes')}</p>
                 <input
                   ref={fileRef}
                   type="file"
@@ -186,7 +185,7 @@ export default function ReportForm({ crops, mandis, onClose, onSuccess }) {
                 />
               </div>
             ) : (
-              <div className="relative rounded-2xl overflow-hidden border border-gray-200 scale-in">
+              <div className="relative rounded-2xl overflow-hidden border divider-themed scale-in">
                 <img src={preview} alt="Receipt preview" className="w-full h-40 object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <button

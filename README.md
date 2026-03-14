@@ -30,10 +30,11 @@ In India's agricultural markets (mandis), farmers often lack access to real-time
 - **Price Comparison Chart** — Side-by-side visualization of official APMC baseline vs crowdsourced farmer averages
 - **Spam Protection** — Backend validation rejects prices with >50% variance from official baselines
 - **Receipt Upload** — Farmers can attach photos of their APMC receipt slips as proof of sale
+- **Dark Mode** — Beautiful dark theme with animated sun/moon toggle and localStorage persistence
 - **Multilingual UI** — One-click English/Hindi toggle covering the entire interface
 - **Demo Mode** — Graceful fallback to hardcoded data if MongoDB is unavailable — never crash during a live demo
 - **Smart Image Compression** — Client-side canvas compression shrinks receipt photos to <500KB before upload
-- **Responsive Design** — Glass morphism UI with smooth animations, optimized for mobile and desktop
+- **Responsive Design** — Glass morphism UI with floating orbs, card-shine effects, and staggered animations
 
 ## Tech Stack
 
@@ -44,7 +45,8 @@ In India's agricultural markets (mandis), farmers often lack access to real-time
 | **Database** | MongoDB with Mongoose ODM |
 | **File Upload** | Multer (local storage) |
 | **i18n** | Lightweight React Context (English / Hindi) |
-| **UI/UX** | Glass morphism, Inter font, staggered animations |
+| **Theming** | Dark/Light mode with CSS variables + React Context |
+| **UI/UX** | Glass morphism, floating orbs, card-shine, staggered animations |
 
 ## Quick Start
 
@@ -107,6 +109,8 @@ farmer-market-price-dashboard/
 │   │   │   ├── FilterBar.jsx
 │   │   │   ├── ComparisonChart.jsx
 │   │   │   └── ReportForm.jsx
+│   │   ├── context/          # React contexts
+│   │   │   └── ThemeContext.jsx
 │   │   ├── i18n/             # Internationalization
 │   │   │   ├── translations.js
 │   │   │   └── LanguageContext.jsx
@@ -170,14 +174,21 @@ The seed script populates the database with:
 | Onion | 1,800 |
 | Tomato | 2,500 |
 | Potato | 1,200 |
+| Rice | 3,200 |
+| Wheat | 2,800 |
 
 | Mandi | Location |
 |-------|----------|
 | Azadpur Mandi | New Delhi, Delhi |
 | Vashi APMC | Navi Mumbai, Maharashtra |
 | Koyambedu Market | Chennai, Tamil Nadu |
+| Gaddiannaram Mandi | Hyderabad, Telangana |
+| Kurnool Market Yard | Kurnool, Andhra Pradesh |
+| Yeshwanthpur APMC | Bengaluru, Karnataka |
+| Lasalgaon APMC | Nashik, Maharashtra |
+| Devi Ahilya Bai Mandi | Indore, Madhya Pradesh |
 
-Plus **10 historical price reports** with randomized data spanning the last 7 days.
+Plus **25 historical price reports** with randomized data spanning the last 7 days.
 
 ## License
 

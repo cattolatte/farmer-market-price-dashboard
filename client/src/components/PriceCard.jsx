@@ -2,9 +2,11 @@ import { HiOutlineBadgeCheck, HiOutlineLocationMarker, HiOutlineClock, HiOutline
 import { useLanguage } from '../i18n/LanguageContext';
 
 const CROP_CONFIG = {
-  Onion:  { emoji: '🧅', gradient: 'from-purple-50 to-fuchsia-50', ring: 'ring-purple-100' },
-  Tomato: { emoji: '🍅', gradient: 'from-red-50 to-orange-50', ring: 'ring-red-100' },
-  Potato: { emoji: '🥔', gradient: 'from-amber-50 to-yellow-50', ring: 'ring-amber-100' },
+  Onion:  { emoji: '🧅', gradient: 'from-purple-50 to-fuchsia-50 dark:from-purple-950/40 dark:to-fuchsia-950/30', ring: 'ring-purple-100 dark:ring-purple-800/40' },
+  Tomato: { emoji: '🍅', gradient: 'from-red-50 to-orange-50 dark:from-red-950/40 dark:to-orange-950/30', ring: 'ring-red-100 dark:ring-red-800/40' },
+  Potato: { emoji: '🥔', gradient: 'from-amber-50 to-yellow-50 dark:from-amber-950/40 dark:to-yellow-950/30', ring: 'ring-amber-100 dark:ring-amber-800/40' },
+  Rice:   { emoji: '🌾', gradient: 'from-lime-50 to-green-50 dark:from-lime-950/40 dark:to-green-950/30', ring: 'ring-lime-100 dark:ring-lime-800/40' },
+  Wheat:  { emoji: '🌿', gradient: 'from-orange-50 to-amber-50 dark:from-orange-950/40 dark:to-amber-950/30', ring: 'ring-orange-100 dark:ring-orange-800/40' },
 };
 
 function timeAgo(dateStr, justNowLabel) {
@@ -28,7 +30,7 @@ export default function PriceCard({ report, index = 0 }) {
 
   return (
     <div
-      className="fade-in glass glow-border rounded-2xl p-5 hover:shadow-xl hover:shadow-gray-200/60 hover:-translate-y-1 transition-all duration-300 group cursor-default"
+      className="fade-in glass glow-border card-shine hover-lift rounded-2xl p-5 group cursor-default"
       style={{ animationDelay: `${index * 60}ms` }}
     >
       {/* Header */}
@@ -38,17 +40,17 @@ export default function PriceCard({ report, index = 0 }) {
             {config.emoji}
           </div>
           <div>
-            <h3 className="font-bold text-gray-900 text-[15px] leading-tight">{crop?.name}</h3>
-            <div className="flex items-center gap-1 text-gray-400 text-xs mt-0.5">
+            <h3 className="font-bold text-themed text-[15px] leading-tight">{crop?.name}</h3>
+            <div className="flex items-center gap-1 text-themed-muted text-xs mt-0.5">
               <HiOutlineLocationMarker className="w-3 h-3 shrink-0" />
               <span className="truncate max-w-[140px]">{mandi?.name}</span>
             </div>
           </div>
         </div>
         {has_receipt && (
-          <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60 shadow-sm shadow-amber-100/50">
+          <div className="badge-shine flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/20 border border-amber-200/60 dark:border-amber-700/40 shadow-sm shadow-amber-100/50 dark:shadow-none">
             <HiOutlineBadgeCheck className="w-3.5 h-3.5 text-amber-500" />
-            <span className="text-[10px] font-extrabold text-amber-600 uppercase tracking-wider">{t('verifiedBadge')}</span>
+            <span className="text-[10px] font-extrabold text-amber-600 dark:text-amber-400 uppercase tracking-wider">{t('verifiedBadge')}</span>
           </div>
         )}
       </div>
@@ -56,27 +58,29 @@ export default function PriceCard({ report, index = 0 }) {
       {/* Price */}
       <div className="mb-4">
         <div className="flex items-baseline gap-1.5">
-          <span className="text-[28px] font-black text-gray-900 tracking-tight">₹{reported_price.toLocaleString()}</span>
-          <span className="text-xs text-gray-400 font-semibold">{t('perQuintal')}</span>
+          <span className="text-[28px] font-black text-themed tracking-tight">₹{reported_price.toLocaleString()}</span>
+          <span className="text-xs text-themed-muted font-semibold">{t('perQuintal')}</span>
         </div>
         <div className="flex items-center gap-3 mt-1.5">
           <div className={`flex items-center gap-0.5 px-2 py-0.5 rounded-full text-xs font-bold ${
-            isAbove ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-500'
+            isAbove
+              ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400'
+              : 'bg-red-50 dark:bg-red-900/30 text-red-500 dark:text-red-400'
           }`}>
             {isAbove ? <HiOutlineTrendingUp className="w-3.5 h-3.5" /> : <HiOutlineTrendingDown className="w-3.5 h-3.5" />}
             <span>{isAbove ? '+' : ''}{diff.toFixed(1)}%</span>
           </div>
-          <span className="text-[11px] text-gray-400 font-medium">{t('vsOfficial')} ₹{baseline.toLocaleString()} {t('officialLabel')}</span>
+          <span className="text-[11px] text-themed-muted font-medium">{t('vsOfficial')} ₹{baseline.toLocaleString()} {t('officialLabel')}</span>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between pt-3 border-t border-gray-100/80">
+      <div className="flex items-center justify-between pt-3 border-t divider-themed">
         <div className="flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
-          <span className="text-xs text-gray-500 font-semibold">{quantity} {t('quintals')}</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-themed-faint"></span>
+          <span className="text-xs text-themed-secondary font-semibold">{quantity} {t('quintals')}</span>
         </div>
-        <div className="flex items-center gap-1 text-xs text-gray-400 font-medium">
+        <div className="flex items-center gap-1 text-xs text-themed-muted font-medium">
           <HiOutlineClock className="w-3 h-3" />
           <span>{timeAgo(timestamp, t('justNow'))}</span>
         </div>
