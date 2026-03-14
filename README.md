@@ -30,6 +30,9 @@ In India's agricultural markets (mandis), farmers often lack access to real-time
 - **Price Comparison Chart** — Side-by-side visualization of official APMC baseline vs crowdsourced farmer averages
 - **Spam Protection** — Backend validation rejects prices with >50% variance from official baselines
 - **Receipt Upload** — Farmers can attach photos of their APMC receipt slips as proof of sale
+- **Multilingual UI** — One-click English/Hindi toggle covering the entire interface
+- **Demo Mode** — Graceful fallback to hardcoded data if MongoDB is unavailable — never crash during a live demo
+- **Smart Image Compression** — Client-side canvas compression shrinks receipt photos to <500KB before upload
 - **Responsive Design** — Glass morphism UI with smooth animations, optimized for mobile and desktop
 
 ## Tech Stack
@@ -40,6 +43,7 @@ In India's agricultural markets (mandis), farmers often lack access to real-time
 | **Backend** | Node.js, Express 5 |
 | **Database** | MongoDB with Mongoose ODM |
 | **File Upload** | Multer (local storage) |
+| **i18n** | Lightweight React Context (English / Hindi) |
 | **UI/UX** | Glass morphism, Inter font, staggered animations |
 
 ## Quick Start
@@ -103,6 +107,11 @@ farmer-market-price-dashboard/
 │   │   │   ├── FilterBar.jsx
 │   │   │   ├── ComparisonChart.jsx
 │   │   │   └── ReportForm.jsx
+│   │   ├── i18n/             # Internationalization
+│   │   │   ├── translations.js
+│   │   │   └── LanguageContext.jsx
+│   │   ├── utils/            # Utilities
+│   │   │   └── compressImage.js
 │   │   ├── App.jsx           # Main application
 │   │   └── index.css         # Tailwind + custom styles
 │   └── index.html
@@ -116,6 +125,7 @@ farmer-market-price-dashboard/
 │   │   ├── mandis.js
 │   │   └── reports.js
 │   ├── seed.js               # Database seeder
+│   ├── demoData.js           # Hardcoded fallback for demo mode
 │   └── server.js             # Express app entry point
 └── package.json              # Root with concurrently scripts
 ```

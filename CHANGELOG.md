@@ -5,6 +5,29 @@ All notable changes to MandiShare will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-03-14
+
+### Added
+
+#### Multilingual Support
+- English/Hindi language toggle in the Navbar with seamless switching
+- React Context-based i18n system (`LanguageContext`) with `useLanguage` hook
+- Complete Hindi translations for all UI strings across every component
+- Language toggle displays "हिंदी" in English mode and "English" in Hindi mode
+
+#### Demo Mode Fallback
+- Hardcoded fallback dataset (`demoData.js`) with 3 crops, 3 mandis, and 10 sample reports
+- All API routes (crops, mandis, reports) gracefully serve demo data when MongoDB is unavailable
+- Ensures the app never crashes during a live demo or if the database goes down
+
+#### Frontend Image Compression
+- Canvas-based image compression utility (`compressImage.js`)
+- Automatically scales images larger than 1600px and compresses to <500KB
+- Progressive quality reduction from 0.8 → 0.3 JPEG quality until target size is met
+- Integrated into the ReportForm drag-and-drop upload flow
+
+---
+
 ## [1.0.0] - 2026-03-13
 
 ### Added
